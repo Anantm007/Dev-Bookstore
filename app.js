@@ -3,6 +3,10 @@ const app = express();
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+// Import Routes
+const userRoutes = require('./routes/user');
+
+
 // MongoDB Setup
 mongoose.connect(process.env.DATABASE, {
     useNewUrlParser: true,
@@ -11,10 +15,8 @@ mongoose.connect(process.env.DATABASE, {
 }).then( () => console.log("Database Connected..."));
 
 
-// Routes
-app.get('/', (req, res) => {
-    res.send("Hello from node");
-});
+// Routes middleware
+app.use('/api',userRoutes);
 
 // Listening to the port
 const port = process.env.PORT || 5000;
