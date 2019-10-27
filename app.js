@@ -14,7 +14,7 @@ const expressValidator = require('express-validator');
 require('dotenv').config();
 
 // Import Routes
-const userRoutes = require('./routes/user');
+const authRoutes = require('./routes/auth');
 
 
 // MongoDB Setup
@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.use(expressValidator());
 
 // Routes middleware
-app.use('/api',userRoutes);
+app.use('/api',authRoutes);
 
 // Listening to the port
 const port = process.env.PORT || 5000;
