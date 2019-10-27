@@ -16,6 +16,8 @@ require('dotenv').config();
 // Import Routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
+const categoryRoutes = require('./routes/category');
+const productRoutes = require('./routes/product');
 
 
 // MongoDB Setup
@@ -34,6 +36,8 @@ app.use(expressValidator());
 // Routes middleware
 app.use('/api',authRoutes);
 app.use('/api',userRoutes);
+app.use('/api',categoryRoutes);
+app.use('/api',productRoutes);
 
 // Listening to the port
 const port = process.env.PORT || 5000;
