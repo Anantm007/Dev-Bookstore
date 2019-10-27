@@ -2,7 +2,6 @@ const User  =require('../models/user');
 
 // Find user by id
 exports.userById = async(req, res, next, id) => {
-    console.log("Hello");
     
     User.findById(id).exec((err, user) => {
         if(err)
