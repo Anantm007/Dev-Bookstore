@@ -96,13 +96,13 @@ exports.update = async(req, res) => {
         }
 
         // check for all fields
-  //      const {name, description, price, quantity, category, shipping} = fields;
-  //        if(!name || !description || !price || !quantity || !category || !shipping)
-  //      {
-  //        return res.status(400).json({
-  //          err: "All fields are required"
-  //    })
-  // }
+        const {name, description, price, quantity, category, shipping} = fields;
+          if(!name || !description || !price || !quantity || !category || !shipping)
+        {
+          return res.status(400).json({
+            err: "All fields are required"
+      })
+   }
 
         // Update product
         let product = req.product;
