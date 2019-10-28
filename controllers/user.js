@@ -13,3 +13,26 @@ exports.userById = async(req, res, next, id) => {
         next();
     })
 };
+
+// Get a single logged in user
+exports.read = async(req, res) => {
+    // Don't send password and salt
+    req.profile.hashed_password = undefined;
+    req.profile.salt = undefined;
+
+    return res.json(req.profile);
+}
+
+// Update a user profile
+exports.update = async(req, res) => {
+    User.findOneAndUpdate({_id: req.profile._id}, {$set: req.body}, {new: true}, (err, user) => {
+        if(err)
+        return res.status(400).json({msg: "You are not authorized to perform this action"});
+        
+        user.hashed_password = undefined;
+        user.salt = undefined;
+    
+        return res.json(user);
+        
+    });
+}
