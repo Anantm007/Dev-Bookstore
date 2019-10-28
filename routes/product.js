@@ -6,7 +6,7 @@ const {requireSignin, isAdmin, isAuth} = require('../controllers/auth');
 const {userById} = require('../controllers/user');
 
 // Require the actual controller
-const {create, productById, read, remove, update, list, listRelated, listCategories} = require('../controllers/product');
+const {create, productById, read, remove, update, list, listRelated, listCategories, listBySearch, photo} = require('../controllers/product');
 
 // Routes
 router.post('/product/create/:userId', requireSignin, isAuth, isAdmin, create);
@@ -16,7 +16,8 @@ router.get('/products/categories', listCategories);
 router.get('/products/related/:productId', listRelated);
 router.delete('/product/:productId/:userId', requireSignin, isAuth, isAdmin, remove )
 router.put('/product/:productId/:userId', requireSignin, isAuth, isAdmin, update )
-
+router.post('/products/by/search', listBySearch);
+router.get('/product/photo/:productId', photo);
 
 // Automatically run this function and populate in req when a parameter is found
 router.param("userId", userById);
