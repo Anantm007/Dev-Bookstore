@@ -156,3 +156,76 @@ exports.remove = async(req, res) => {
     });
 
 };
+
+
+// RETURN PRODUCTS BY QUERY
+
+/*
+ * sell/arrival
+ * by sale = /products?sortBy=sold&order=desc&limit=4
+ * by arrival = /products?sortBy=createdAt&order=desc&limit=4
+ * if no params specified, then all products are returned  
+ */
+
+ // Get all products
+ exports.list = async(req, res) => {
+     // query parameter
+     let order = req.query.order ? req.query.order : 'asc';
+     let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+     let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+     await Product.find()
+            .select("-photo")
+            .populate("category")
+            .sort([[sortBy, order]])
+            .limit(limit)
+            .exec((err, data) => {
+                if(err)
+                {
+                    return res.status(400).json({
+                        msg: "Products not found"
+                    })
+                }
+
+                return res.json(data);
+            });
+ };
+
+ 
+ // Get related products (same category)
+ exports.listRelated = async(req, res) => {
+    
+    // query parameter
+    console.log(req.query.limit);
+    let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+    // find all products of same category except same category
+    await Product.find({_id: {$ne: req.product}, category: req.product.category})
+           .populate("category", "_id name") // populate only id and name
+           .limit(limit)
+           .exec((err, data) => {
+               if(err)
+               {
+                   return res.status(400).json({
+                       msg: "Products not found"
+                   })
+               }
+
+               return res.json(data);
+           });
+};
+
+// List product categories
+exports.listCategories = async(req, res) => {
+    Product.distinct("category", {}, (err, data) => {
+        if(err)
+        {
+            return res.status(400).json({
+                msg: "Categories not found"
+            })
+        }
+
+        return res.json(data);
+ 
+    })
+}
