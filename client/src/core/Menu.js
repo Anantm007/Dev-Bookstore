@@ -17,12 +17,13 @@ const Menu = ({history}) => {
     return (
         <div>
             <ul className="nav nav-tabs bg-dark" style={{height: 50}}>
-                <li className="nav-item">
-                    <Link className="nav-link" style={isActive(history, '/')} to="/">Home</Link>
-                </li>
+        
+                    <li className="nav-item">
+                        <Link className="nav-link" style={isActive(history, '/')} to="/">Home</Link>
+                    </li>
 
                 {!isAuthenticated() && (
-                 <Fragment>
+                 <Fragment>         
                     <li className="nav-item">
                         <Link className="nav-link" style={isActive(history, '/signin')} to="/signin">Signin</Link>
                     </li>
@@ -38,11 +39,19 @@ const Menu = ({history}) => {
                 )}
 
                 {isAuthenticated() && (
+                    <Fragment>
+                    
+                    <li className="nav-item">
+                        <Link className="nav-link" style={isActive(history, '/user/dashboard')} to="/user/dashboard">Dashboard</Link>
+                    </li>
+                    
                     <li className="nav-item">
                         <span className="nav-link" style={{cursor: 'pointer', color: '#ffffff'}} onClick={() => signout(() => {
                         history.push('/')
                         })}>Signout</span>
                     </li>
+                    
+                    </Fragment>                 
 
                 )}
                 
