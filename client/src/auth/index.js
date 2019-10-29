@@ -1,9 +1,6 @@
-import {API} from '../config';
-
-
 // Register User
 export const signup = async user => {
-    return fetch(`${API}/signup`, {
+    return fetch(`/api/signup`, {
         method: "POST",
         headers: {
             Accept: "application/json",
