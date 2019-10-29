@@ -9,10 +9,10 @@ const UserDashboard = () => {
 
     const userLinks = () => {
         return (
-            <div className="card">
-                <h4 className="card-header">User Links</h4>
+            <div className="card mb-5">
+                <h4 className="card-header text-center">User Links</h4>
                 <ul className="list-group">
-                    <li className="list-group-item"><Link to="/cart" className="nav-link">Cart</Link></li>
+                    <li className="list-group-item"><Link to="/cart" className="nav-link">My Shopping Cart</Link></li>
                     <li className="list-group-item"><Link to="/profile/update" className="nav-link">Update Profile</Link></li>
                 </ul>
 
@@ -23,11 +23,11 @@ const UserDashboard = () => {
     const userInfo = () => {
         return (
             <div className="card mb-5">
-            <h3 className="card-header">User Information</h3>
+            <h3 className="card-header text-center">User Information</h3>
             <ul className="list-group">
                 <li className="list-group-item">{name}</li>
                 <li className="list-group-item">{email}</li>
-                <li className="list-group-item">{role == 1 ? 'Admin': `User id : ${_id}`}</li>
+                <li className="list-group-item">{role === 1 ? 'Admin': `User id : ${_id}`}</li>
             </ul>
             </div>
         )
@@ -36,7 +36,7 @@ const UserDashboard = () => {
     const purchaseHistory = () => {
         return (
             <div className="card mb-5">
-                <h3 className="card-header">Purchase History</h3>
+                <h3 className="card-header text-center">Purchase History</h3>
                     <ul className="list-group">
                         <li className="list-group-item">history</li>
                     </ul>
@@ -47,11 +47,11 @@ const UserDashboard = () => {
     return (
         <Layout title="Dashboard" description={`Welcome, ${name}`} className="container-fluid">
             <div className="row">
-                <div className="col-3">
+                <div className="xs-col-12 col-sm-4">
                     {userLinks()}
                 </div>
 
-                <div className="col-9">
+                <div className="xs-col-12 col-sm-8">
                     {userInfo()}
                     {purchaseHistory()}
                 </div>
