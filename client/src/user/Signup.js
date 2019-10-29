@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
+import Layout from '../core/Layout';
 
-const Signup = () => {
+const Home = () => {
     return (
-        <div>
-            <h1>Signup</h1>
-        </div>
+        <Layout title="Signup" description="Sign up to the Node React E-commerce app">
+            ...
+        </Layout>
+           
     )
-}
+};
 
-export default Signup
+export default Home

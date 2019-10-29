@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
+import Layout from './Layout';
 
 const Home = () => {
     return (
-        <div>
-           <h1>Home</h1> 
-        </div>
+        <Layout title="Home Page" description="Node React E-commerce app">
+            ...
+        </Layout>
+           
     )
-}
+};
 
 export default Home
