@@ -3,7 +3,7 @@ import Layout from '../core/Layout';
 import {Link} from 'react-router-dom';
 import {signup} from '../auth';
 
-const Home = () => {
+const Signup = () => {
 
     const [values, setValues] = useState({
         name: '',
@@ -88,4 +88,4 @@ const Home = () => {
     )
 };
 
-export default Home
+export default Signup;

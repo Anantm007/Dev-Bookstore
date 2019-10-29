@@ -43,7 +43,7 @@ exports.signin = async(req, res) => {
         // create authenticate method in user model
         if(!user.authenticate(password))
         {
-            return res.json(401).json({err: "Invalid Credentials"})
+            return res.status(401).json({err: "Invalid Credentials"})
         }
 
         // generate a signed token with user id and secret
