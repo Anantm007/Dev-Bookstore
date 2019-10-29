@@ -4,8 +4,8 @@
   "description": "A fully functional MERN stack ecommerce application with payment gateway",
   "main": "app.js",
   "scripts": {
-    "start": "node server",
-    "server": "nodemon server",
+    "start": "node app",
+    "server": "nodemon app",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
@@ -13,6 +13,7 @@
   "author": "Anant Mathur",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "concurrently": "^5.0.0",
     "cookie-parser": "^1.4.4",
