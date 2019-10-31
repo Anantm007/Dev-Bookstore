@@ -18,12 +18,11 @@ const AddProduct = () => {
         loading: false,
         error: '',
         createdProduct: '',
-        redirectToProfile: false,
         formData: ''
     });
 
     const {name, description, price, categories, category, shipping, quantity,
-        loading, error, createdProduct, redirectToProfile, formData} = values;
+        loading, error, createdProduct, formData} = values;
 
     // load categories and form set data
     const init = () => {
@@ -41,6 +40,8 @@ const AddProduct = () => {
     
     useEffect(() => {
         init();
+        
+        // eslint-disable-next-line
     }, [])
     
 
@@ -64,7 +65,8 @@ const AddProduct = () => {
             else
             {
                 setValues({
-                    ...values, name: '', description: '', photo: '', price: '', quantity: '', loading: '', createdProduct: data.name
+                    ...values, name: '', description: '', photo: '', price: '', quantity: 0, loading: '', 
+                    category: '', shipping: '',createdProduct: data.name
                 })
             }
         })
