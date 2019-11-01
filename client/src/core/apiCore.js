@@ -10,3 +10,15 @@ export const getProducts = (sortBy) => {
         console.log(err);
     })
 } 
+
+
+// Get categories from backend
+export const getCategories = () => {
+    return fetch(`/api/categories`, {
+        method: "GET"
+    })
+    .then(res => {
+        return res.json()
+    })
+    .catch(err => console.log(err));
+}

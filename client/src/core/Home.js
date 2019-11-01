@@ -56,7 +56,7 @@ const Home = () => {
     }, [])
 
     return (
-        <Layout title="Home Page" description="Buy some awesome books now" className="container-fluid">
+        <Layout title="Dev Bookstore" description="Buy some awesome dev related books now" className="container-fluid">
             
             <h2 className="mb-4">New Arrivals</h2>
             {showLoading()}
