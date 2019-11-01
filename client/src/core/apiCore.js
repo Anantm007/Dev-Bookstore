@@ -22,3 +22,24 @@ export const getCategories = () => {
     })
     .catch(err => console.log(err));
 }
+
+// Get products based on category and price filters
+export const getFilteredProducts = async(skip, limit, filters = {}) => {
+    const data = {
+        limit, skip, filters
+    };
+    return fetch(`/api/products/by/search`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        return response.json();
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
