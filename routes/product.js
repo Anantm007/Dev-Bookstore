@@ -6,12 +6,13 @@ const {requireSignin, isAdmin, isAuth} = require('../controllers/auth');
 const {userById} = require('../controllers/user');
 
 // Require the actual controller
-const {create, productById, read, remove, update, list, listRelated, listCategories, listBySearch, photo} = require('../controllers/product');
+const {create, productById, read, remove, update, list, listRelated, listCategories, listBySearch, listSearch, photo} = require('../controllers/product');
 
 // Routes
 router.post('/product/create/:userId', requireSignin, isAuth, isAdmin, create);
 router.get('/product/:productId', read);
 router.get('/products', list);
+router.get('/products/search', listSearch);
 router.get('/products/categories', listCategories);
 router.get('/products/related/:productId', listRelated);
 router.delete('/product/:productId/:userId', requireSignin, isAuth, isAdmin, remove )

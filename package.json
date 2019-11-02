@@ -29,6 +29,7 @@
     "mongoose": "^5.7.6",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.4",
+    "query-string": "^6.8.3",
     "uuid": "^3.3.3"
   }
 }

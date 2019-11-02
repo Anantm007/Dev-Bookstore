@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Layout from './Layout';
 import {getProducts} from './apiCore';
 import Card from './Card';
+import Search from './Search'
 
 const Home = () => {
 
@@ -53,11 +54,12 @@ const Home = () => {
         loadProductsBySell()
         loadProductsByArrival()
         showLoading()
+        //eslint-disable-next-line
     }, [])
 
     return (
         <Layout title="Dev Bookstore" description="Buy some awesome dev related books now" className="container-fluid">
-            
+            <Search />
             <h2 className="mb-4">New Arrivals</h2>
             {showLoading()}
             <div className="row">                
