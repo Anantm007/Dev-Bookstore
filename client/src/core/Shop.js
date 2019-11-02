@@ -16,13 +16,16 @@ const Shop = () => {
     const [skip, setSkip] = useState(0);
     const [size, setSize] = useState(0);
     const [filteredResults, setFilteredResults] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const init = () => {
         getCategories().then(data => {
             if (data.error) {
                 setError(data.error);
+                setLoading(false);
             } else {
                 setCategories(data);
+                setLoading(false);
             }
         });
     };
@@ -32,8 +35,10 @@ const Shop = () => {
         getFilteredProducts(skip, limit, newFilters).then(data => {
             if (data.error) {
                 setError(data.error);
+                setLoading(false);
             } else {
                 setFilteredResults(data.data);
+                setLoading(false);
                 setSize(data.size);
                 setSkip(0);
             }
@@ -46,9 +51,11 @@ const Shop = () => {
         getFilteredProducts(toSkip, limit, myFilters.filters).then(data => {
             if (data.error) {
                 setError(data.error);
+                setLoading(false);
             } else {
                 setFilteredResults([...filteredResults, ...data.data]);
                 setSize(data.size);
+                setLoading(false);
                 setSkip(toSkip);
             }
         });
@@ -65,13 +72,20 @@ const Shop = () => {
         );
     };
 
+    const showLoading = () => (
+        loading && (<div className="alert alert-success">
+            <h2>Loading...</h2>
+        </div>)
+    )
+
     useEffect(() => {
         init();
         loadFilteredResults(skip, limit, myFilters.filters);
+        showLoading()
+        //eslint-disable-next-line
     }, []);
 
     const handleFilters = (filters, filterBy) => {
-        // console.log("SHOP", filters, filterBy);
         const newFilters = { ...myFilters };
         newFilters.filters[filterBy] = filters;
 
@@ -126,6 +140,7 @@ const Shop = () => {
 
                 <div className="col-8">
                     <h2 className="mb-4">Products</h2>
+                    {showLoading()}
                     <div className="row">
                         {filteredResults.map((product, i) => (
                             <Card key={i} product={product} />
