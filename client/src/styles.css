@@ -4,6 +4,25 @@
     border-radius: 0px;
 }
 
+.name {
+    background: indigo;
+    color: white;
+    font-weight: bold;
+}
+
+.black-10 {
+    background: #f2f2f2;
+}
+
+.black-9 {
+    background: #e6e6e6;
+}
+
+.black-8 {
+    background: #d9d9d9;
+}
+
+
 .product-img {
     min-height: 100px;
 }

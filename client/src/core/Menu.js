@@ -36,7 +36,7 @@ const Menu = ({history}) => {
                         <Link className="nav-link" style={isActive(history, '/signup')} to="/signup">Signup</Link>
                     </li>
  
-                    <li className="nav-item ml-auto">
+                    <li className="nav-item">
                        <Link className="nav-link" style={isActive(history, '/about')} to="/about">About</Link>
                     </li>
                 </Fragment>
@@ -57,6 +57,11 @@ const Menu = ({history}) => {
                              <Link className="nav-link" style={isActive(history, '/admin/dashboard')} to="/admin/dashboard">Dashboard</Link>
                          </li>
                           )}
+
+                          
+                    <li className="nav-item">
+                       <Link className="nav-link" style={isActive(history, '/about')} to="/about">About</Link>
+                    </li>
                     
                     <li className="nav-item ml-auto">
                         <span className="nav-link" style={{cursor: 'pointer', color: '#ffffff'}} onClick={() => signout(() => {

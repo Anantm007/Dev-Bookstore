@@ -46,6 +46,7 @@ export const getFilteredProducts = async(skip, limit, filters = {}) => {
     })
 }
 
+// Get categpry based on search on home page
 export const list = params => {
 
     const query = queryString.stringify(params);
@@ -59,4 +60,28 @@ export const list = params => {
     .catch(err => {
         console.log(err);
     })
+}
+
+// Get a single product from backend
+export const read = (productId) => {
+    return fetch(`/api/product/${productId}`, {
+        method: "GET"
+    })
+    .then(response => {
+        return response.json();
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+// Get related products from backend
+export const listRelated = (productId) => {
+    return fetch(`/api/products/related/${productId}`, {
+        method: "GET"
+    })
+    .then(res => {
+        return res.json()
+    })
+    .catch(err => console.log(err));
 }

@@ -63,13 +63,21 @@ const Home = () => {
             <h2 className="mb-4">New Arrivals</h2>
             {showLoading()}
             <div className="row">                
-                {productsbyArrival.map((product, i) =>(<Card key={i} product={product} />))}
+                {productsbyArrival.map((product, i) =>(
+                    <div className="col-4 mb-3">    
+                       <Card key={i} product={product} />      
+                    </div>
+                ))}
             </div>
 
             <h2 className="mb-4">Best Sellers</h2>
             {showLoading()}
             <div className="row">                
-                {productsbySell.map((product, i) =>(<Card key={i} product={product} />))}
+                {productsbySell.map((product, i) =>(
+                    <div className="col-4 mb-3">    
+                       <Card key={i} product={product} />      
+                    </div>
+                ))}
             </div>
 
         </Layout>

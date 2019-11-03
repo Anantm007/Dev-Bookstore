@@ -12,7 +12,9 @@ const {errorHandler} = require('../helpers/dbErrorHandler');
 
 // Find product by id
 exports.productById = async(req, res, next, id) => {
-    Product.findById(id).exec((err, product) => {
+    Product.findById(id)
+    .populate('category')
+    .exec((err, product) => {
         if(err || !product)
         {
             return res.status(400).json({msg: 'Product not found'});
