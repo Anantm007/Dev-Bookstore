@@ -97,16 +97,13 @@ const Card = ({product, showViewProductButton = true, showAddToCartButton = true
 
                     {showStock(product.quantity)}
                     <br />
-                    <Link to={`/product/${product._id}`} >
                         {showViewButton(showViewProductButton)}
-                    </Link>
+                    
                     
                     {showRemoveButton(showRemoveProductButton)}
 
-                    <Link to='/'>
                         {showAddToCart(showAddToCartButton)}
-                    </Link>
-
+                    
                     {showCartUpdateOptions(cartUpdate)}
                 </div>
             </div>
