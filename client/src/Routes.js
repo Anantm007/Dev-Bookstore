@@ -6,6 +6,7 @@ import Signin from './user/Signin';
 import PrivateRoute from './auth/PrivateRoute';
 import AdminRoute from './auth/AdminRoute';
 import Shop from './core/Shop'
+import Cart from './core/Cart'
 import Product from './core/Product';
 import UserDashboard from './user/UserDashboard';
 import AdminDashboard from './user/AdminDashboard';
@@ -22,6 +23,7 @@ const Routes = () => {
                 <Route exact path="/product/:productId" component={Product} />
                 <Route exact path="/signin" component={Signin} />
                 <Route exact path="/signup" component={Signup} />
+                <Route exact path="/cart" component={Cart} />
                 <Route exact path="/about" component={About} />
                 <PrivateRoute exact path="/user/dashboard" component={UserDashboard} />
                 <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />

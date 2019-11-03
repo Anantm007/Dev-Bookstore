@@ -64,8 +64,8 @@ const Home = () => {
             {showLoading()}
             <div className="row">                
                 {productsbyArrival.map((product, i) =>(
-                    <div className="col-4 mb-3">    
-                       <Card key={i} product={product} />      
+                    <div key={i} className="col-4 mb-3">    
+                       <Card product={product} />      
                     </div>
                 ))}
             </div>
@@ -74,8 +74,8 @@ const Home = () => {
             {showLoading()}
             <div className="row">                
                 {productsbySell.map((product, i) =>(
-                    <div className="col-4 mb-3">    
-                       <Card key={i} product={product} />      
+                    <div key={i} className="col-4 mb-3">    
+                       <Card product={product} />      
                     </div>
                 ))}
             </div>
