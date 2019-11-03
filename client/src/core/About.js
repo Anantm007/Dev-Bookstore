@@ -7,7 +7,8 @@ const Home = () => {
             <div className="container">
                 <a href="https://github.com/Anantm007" target="_blank"><h2>Github</h2></a>
                 <a href="https://www.linkedin.com/in/anant-mathur-61911423/" target="_blank"><h2>LinkedIn</h2></a>
-                <a href="https://anantmathur.me/" target="_blamk"><h2>Website</h2></a>    
+                <a href="https://anantmathur.me/" target="_blank"><h2>Website</h2></a>
+                <a href="mailto:anant.mathur007@gmail.com"><h2>Email</h2></a>    
             </div>            
         </Layout>
            
