@@ -7,6 +7,7 @@ import Card from './Card';
 const Cart = () => {
 
     const [items, setItems] = useState([]);
+    const [run, setRun] = useState(false);
 
     const noItemsMessage = () => {
         return (
@@ -25,7 +26,8 @@ const Cart = () => {
                 <h2>Your cart has {`${items.length}`} items</h2>
                 <hr />
                 {items.map((p, i) => (
-                <Card key={i} product={p} showAddToCartButton={false} />
+                <Card key={i} product={p} showAddToCartButton={false} 
+                cartUpdate = {true} showRemoveProductButton={true} setRun={setRun} run={run} />
                 ))}
             </div>
         )
@@ -33,8 +35,7 @@ const Cart = () => {
 
     useEffect(() => {
         setItems(getCart())
-        //eslint-disable-next-line
-    }, [])
+    }, [run])
 
     return (
         <Layout title="My Cart" description="Manage your cart items. Add, Remove, Checkout or continue shopping"
