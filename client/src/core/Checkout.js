@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {isAuthenticated} from '../auth';
-import {getBraintreeClientToken} from './apiCore';
+import {getBraintreeClientToken, processPayment} from './apiCore';
 import DropIn from "braintree-web-drop-in-react";
+import {emptyCart} from './cartHelpers';
 
 const Checkout = ({products}) => {
     
@@ -26,7 +27,7 @@ const Checkout = ({products}) => {
 
             else
             {
-                setData({...data, clientToken: data.clientToken})
+                setData({ clientToken: data.clientToken})
             }
         })
     }
@@ -59,18 +60,36 @@ const Checkout = ({products}) => {
         let nonce;
         let getNonce = data.instance.requestPaymentMethod()
         .then(data => {
-            console.log(data);
             nonce = data.nonce;
+
             // once we have nonce(cad type, number etc) send nonce as 'paymentMethodNonce'
             // and also total to be charged
+            const paymentData = {
+                paymentMethodNonce: nonce,
+                amount: getTotal(products)
+            }
 
-            console.log('send nonce and total to process', nonce, getTotal(products));
+            processPayment(userid, token, paymentData)
+            .then(response => {
+                setData({...data, success: response.success});
+                emptyCart(() => {
+                    console.log('payment success and empty cart');
+                })
+                // empty cart and create order
+            })
+            .catch(error => console.log((error)))
         })
         .catch(error => {
             console.log('dropin error', error);
             setData({...data, error: error.message});
         })
     }
+
+    const showSuccess = success => (
+        <div className="alert alert-info" style={{display: success ? "": "none"}}>
+            Thanks! Your payment was successfull. Please check your email
+        </div>
+    )
 
     const showDropIn = () => {
         return (
@@ -80,7 +99,7 @@ const Checkout = ({products}) => {
                     <DropIn options = {{
                         authorization: data.clientToken
                     }} onInstance = {instance => (data.instance = instance)}/>
-                    <button onClick={buy} className="btn btn-success">Pay</button>
+                    <button onClick={buy} className="btn btn-success btn-block">Pay</button>
                 </div>
             ) : null}
         </div>
@@ -90,7 +109,8 @@ const Checkout = ({products}) => {
     
     return (
         <div>
-            <h2>Total: ₹ {getTotal()}</h2>               
+            <h2>Total: ₹ {getTotal()}</h2>
+            {showSuccess(data.success)}               
             {showCheckOut()}
         </div>
     )
