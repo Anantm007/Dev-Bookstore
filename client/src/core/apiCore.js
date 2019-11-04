@@ -85,3 +85,19 @@ export const listRelated = (productId) => {
     })
     .catch(err => console.log(err));
 }
+
+// Get braintree client token from backend
+export const getBraintreeClientToken = (userId, token) => {
+    return fetch(`/api/braintree/getToken/${userId}`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+    })
+    .then(res => {
+        return res.json()
+    })
+    .catch(err => console.log(err));
+}
