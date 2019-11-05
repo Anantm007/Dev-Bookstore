@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getBraintreeClientToken, processPayment} from "./apiCore";
 import { emptyCart } from "./cartHelpers";
 import { isAuthenticated } from "../auth";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import DropIn from "braintree-web-drop-in-react";
 
 const Checkout = ({ products }) => {
@@ -30,6 +30,7 @@ const Checkout = ({ products }) => {
 
     useEffect(() => {
         getToken(userId, token);
+        //eslint-disable-next-line
     }, []);
 
     const getTotal = () => {
@@ -53,18 +54,12 @@ const Checkout = ({ products }) => {
         // send the nonce to your server
         // nonce = data.instance.requestPaymentMethod()
         let nonce;
-        let getNonce = data.instance
+            data.instance
             .requestPaymentMethod()
             .then(data => {
-                // console.log(data);
                 nonce = data.nonce;
                 // once you have nonce (card type, card number) send nonce as 'paymentMethodNonce'
                 // and also total to be charged
-                // console.log(
-                //     "send nonce and total to process: ",
-                //     nonce,
-                //     getTotal(products)
-                // );
                 const paymentData = {
                     paymentMethodNonce: nonce,
                     amount: getTotal(products)
@@ -76,9 +71,8 @@ const Checkout = ({ products }) => {
                         setData({ ...data, success: response.success });
                         emptyCart(() => {
                             console.log("payment success and empty cart");
-                            setData({ loading: false });
-                        });
-                        // empty cart
+                            setData({ loading: false, success: true});
+                        });                      
                         // create order
                     })
                     .catch(error => {
@@ -105,7 +99,7 @@ const Checkout = ({ products }) => {
                         }}
                         onInstance={instance => (data.instance = instance)}
                     />
-                    <button onClick={buy} className="btn btn-success btn-block">
+                    <button onClick={buy} className="btn btn-success btn-block" style={{display: data.success ? "none" : "" }}>
                         Pay
                     </button>
                 </div>
@@ -127,7 +121,7 @@ const Checkout = ({ products }) => {
             className="alert alert-info"
             style={{ display: success ? "" : "none" }}
         >
-            Thanks! Your payment was successful!
+            Thanks! Your payment was successful! Please check your email
         </div>
     );
 
@@ -136,7 +130,7 @@ const Checkout = ({ products }) => {
 
     return (
         <div>
-            <h2>Total: ${getTotal()}</h2>
+            <h2>Total: ₹ {getTotal()}</h2>
             {showLoading(data.loading)}
             {showSuccess(data.success)}
             {showError(data.error)}

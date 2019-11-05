@@ -12,7 +12,7 @@ const Shop = () => {
     });
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(false);
-    const [limit, setLimit] = useState(6);
+    const [limit] = useState(6);
     const [skip, setSkip] = useState(0);
     const [size, setSize] = useState(0);
     const [filteredResults, setFilteredResults] = useState([]);
@@ -22,6 +22,7 @@ const Shop = () => {
         getCategories().then(data => {
             if (data.error) {
                 setError(data.error);
+                console.log(error);
                 setLoading(false);
             } else {
                 setCategories(data);

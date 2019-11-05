@@ -16,6 +16,7 @@ const Home = () => {
             if(data.err)
             {
                 setError(data.err);
+                console.log(error);
                 setLoading(false);
             }
 
