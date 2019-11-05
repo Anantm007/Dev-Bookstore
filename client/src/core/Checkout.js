@@ -72,6 +72,7 @@ const Checkout = ({ products }) => {
                         emptyCart(() => {
                             console.log("payment success and empty cart");
                             setData({ loading: false, success: true});
+                            setTimeout(function(){window.location.reload(); }, 2200);
                         });                      
                         // create order
                     })
@@ -131,6 +132,7 @@ const Checkout = ({ products }) => {
     return (
         <div>
             <h2>Total: ₹ {getTotal()}</h2>
+            <p>Try checking out with a dummy credit card number like 4111 1111 1111 1111 and any expiration date and cvv</p>
             {showLoading(data.loading)}
             {showSuccess(data.success)}
             {showError(data.error)}
