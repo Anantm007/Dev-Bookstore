@@ -99,6 +99,7 @@ const Checkout = ({ products }) => {
                                         success: true
                                     });
                                 });
+                                setTimeout(() => window.location.reload(), 2200);
                             })
                             .catch(error => {
                                 console.log(error);
@@ -119,7 +120,7 @@ const Checkout = ({ products }) => {
         <div onBlur={() => setData({ ...data, error: "" })}>
             {data.clientToken !== null && products.length > 0 ? (
                 <div>
-                    <div className="gorm-group mb-3">
+                    <div className="gorm-group mb-3" style={{display: data.success ? "none" : "" }}>
                         <label className="text-muted">Delivery address:</label>
                         <textarea onChange = {handleAddress} className="form-control" 
                             value={data.address} placeholder="Please enter your shipping address here.." />
