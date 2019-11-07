@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getBraintreeClientToken, processPayment} from "./apiCore";
+import { getBraintreeClientToken, processPayment, createOrder} from "./apiCore";
 import { emptyCart } from "./cartHelpers";
 import { isAuthenticated } from "../auth";
 import { Link} from "react-router-dom";
@@ -33,6 +33,10 @@ const Checkout = ({ products }) => {
         //eslint-disable-next-line
     }, []);
 
+    const handleAddress = event => {
+        setData({...data, address: event.target.value})
+    }
+
     const getTotal = () => {
         return products.reduce((currentValue, nextValue) => {
             return currentValue + nextValue.count * nextValue.price;
@@ -49,17 +53,26 @@ const Checkout = ({ products }) => {
         );
     };
 
+    
+    let deliveryAddress = data.address;
+
     const buy = () => {
         setData({ loading: true });
         // send the nonce to your server
         // nonce = data.instance.requestPaymentMethod()
         let nonce;
-            data.instance
+        data.instance
             .requestPaymentMethod()
             .then(data => {
+                // console.log(data);
                 nonce = data.nonce;
                 // once you have nonce (card type, card number) send nonce as 'paymentMethodNonce'
                 // and also total to be charged
+                // console.log(
+                //     "send nonce and total to process: ",
+                //     nonce,
+                //     getTotal(products)
+                // );
                 const paymentData = {
                     paymentMethodNonce: nonce,
                     amount: getTotal(products)
@@ -68,13 +81,29 @@ const Checkout = ({ products }) => {
                 processPayment(userId, token, paymentData)
                     .then(response => {
                         console.log(response);
-                        setData({ ...data, success: response.success });
-                        emptyCart(() => {
-                            console.log("payment success and empty cart");
-                            setData({ loading: false, success: true});
-                            setTimeout(function(){window.location.reload(); }, 2200);
-                        });                      
                         // create order
+                        const createOrderData = {
+                            products: products,
+                            transaction_id: response.transaction.id,
+                            amount: response.transaction.amount,
+                            address: deliveryAddress
+                        };
+
+                        createOrder(userId, token, createOrderData)
+                            .then(response => {
+                                // empty cart
+                                emptyCart(() => {
+                                    console.log("payment success and empty cart");
+                                    setData({
+                                        loading: false,
+                                        success: true
+                                    });
+                                });
+                            })
+                            .catch(error => {
+                                console.log(error);
+                                setData({ loading: false });
+                            });
                     })
                     .catch(error => {
                         console.log(error);
@@ -82,7 +111,6 @@ const Checkout = ({ products }) => {
                     });
             })
             .catch(error => {
-                // console.log("dropin error: ", error);
                 setData({ ...data, error: error.message });
             });
     };
@@ -91,6 +119,11 @@ const Checkout = ({ products }) => {
         <div onBlur={() => setData({ ...data, error: "" })}>
             {data.clientToken !== null && products.length > 0 ? (
                 <div>
+                    <div className="gorm-group mb-3">
+                        <label className="text-muted">Delivery address:</label>
+                        <textarea onChange = {handleAddress} className="form-control" 
+                            value={data.address} placeholder="Please enter your shipping address here.." />
+                    </div>
                     <DropIn
                         options={{
                             authorization: data.clientToken,
