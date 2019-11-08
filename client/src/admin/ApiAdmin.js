@@ -45,3 +45,19 @@ export const getCategories = () => {
     })
     .catch(err => console.log(err));
 }
+
+// Fetch all orders for admin
+export const listOrders = (userId, token) => {
+    return fetch(`/api/order/list/${userId}`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+    })
+    .then(res => {
+        return res.json()
+    })
+    .catch(err => console.log(err));
+}
