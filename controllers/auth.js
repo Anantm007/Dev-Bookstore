@@ -94,7 +94,6 @@ exports.isAdmin = async(req, res, next) => {
     // Not Admin
     if(req.profile.role === 0)
     {
-        console.log("object");
         return res.status(403).json({err: "Admin access required"});
     }    
 

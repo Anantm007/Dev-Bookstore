@@ -1,19 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import Layout from '../core/Layout';
 import {isAuthenticated} from '../auth';
-import {listOrders} from './ApiAdmin';
+import {listOrders, getStatusValues, updateOrderStatus} from './ApiAdmin';
 import Moment from 'moment';
 
 export const Orders = () => {
     
     const [orders, setOrders] = useState([]);
+    const [statusValues, setStatusValues] = useState([]);
     const [loading, setLoading] = useState(true);
     
     const {user, token} = isAuthenticated();
     
     const loadOrders = () => {
         listOrders(user._id, token).then(data => {
-            if(data.err)
+            if(data.error)
             {
                 console.log(data.err);
                 setLoading(false);
@@ -25,6 +26,49 @@ export const Orders = () => {
                 setLoading(false);
             }
         })
+    }
+    
+    const loadStatusValues = () => {
+        getStatusValues(user._id, token).then(data => {
+            if(data.error)
+            {
+                console.log(data.error);
+                setLoading(false);
+            }
+
+            else
+            {
+                setStatusValues(data);
+                setLoading(false);
+            }
+        })
+    }
+
+    const handleStatusChange = (e, orderId) => {
+        updateOrderStatus(user._id, token, orderId, e.target.value)
+        .then(data => {
+            if(data.error)
+            {
+                console.log("Status update fail");
+            }
+
+            else
+            {
+                loadOrders()
+            }
+        })
+    }
+
+    const showStatus = (o) => {
+        return (<div className="form-group">
+            <h3 className="mark mb-4">Status: {o.status}</h3>
+            <select className = "form-control" onChange={(e) => handleStatusChange(e,o._id)}>
+                <option>Update Status</option>
+                {statusValues.map((status, i) => (
+                     <option key={i} value={status}>{status}</option>
+                ))}
+            </select>
+        </div>)
     }
 
     
@@ -61,6 +105,7 @@ export const Orders = () => {
 
     useEffect(() => {
         loadOrders()
+        loadStatusValues()
         showLoading()
         // eslint-disable-next-line
     }, [])
@@ -80,7 +125,7 @@ export const Orders = () => {
                                 </span>
                             </h2>
                             <ul className="list-group mb-2">
-                                <li className="list-group-item font-weight-bold">Status: {o.status}</li>
+                                <li className="list-group-item">{showStatus(o)}</li>
                                 <li className="list-group-item">Transaction_id: {o.transaction_id}</li>
                                 <li className="list-group-item">Amount: {o.amount}</li>
                                 <li className="list-group-item">Ordered by: {o.user.name}</li>
