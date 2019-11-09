@@ -1,4 +1,8 @@
-const User  =require('../models/user');
+const User = require('../models/user');
+const {Order} = require('../models/order');
+
+// Handle database error
+const {errorHandler} = require('../helpers/dbErrorHandler');
 
 // Find user by id
 exports.userById = async(req, res, next, id) => {
@@ -36,3 +40,18 @@ exports.update = async(req, res) => {
         
     });
 }
+
+// Purchase history of the user
+exports.purchaseHistory = (req, res) => {
+    Order.find({ user: req.profile._id })
+        .populate("user", "_id name")
+        .sort("-created")
+        .exec((err, orders) => {
+            if (err) {
+                return res.status(400).json({
+                    error: errorHandler(err)
+                });
+            }
+            res.json(orders);
+        });
+};
