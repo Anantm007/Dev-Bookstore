@@ -13,7 +13,7 @@ const UserDashboard = () => {
                 <h4 className="card-header text-center">User Links</h4>
                 <ul className="list-group">
                     <li className="list-group-item"><Link to="/cart" className="nav-link">My Shopping Cart</Link></li>
-                    <li className="list-group-item"><Link to="/profile/update" className="nav-link">Update Profile</Link></li>
+                    <li className="list-group-item"><Link to={`/profile/${_id}`} className="nav-link">Update Profile</Link></li>
                 </ul>
 
             </div>
