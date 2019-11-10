@@ -13,6 +13,8 @@ A MERN stack e-commerce app along with payment gateway that sells developer book
 9. Books also categorized upon arrival date and bestsellers
 10. Order confirmation through email and change order status for admin
 
+https://devbookstore.herokuapp.com/
+
 Feel free to fork this repo and raise an issue or submit a PR in case of any bugs.
 
 All suggestions are welcome!
