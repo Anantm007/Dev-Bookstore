@@ -97,15 +97,6 @@ exports.update = async(req, res) => {
             return res.status(400).json({msg: 'Image could not be uploaded'});
         }
 
-        // check for all fields
-        const {name, description, price, quantity, category, shipping} = fields;
-          if(!name || !description || !price || !quantity || !category || !shipping)
-        {
-          return res.status(400).json({
-            err: "All fields are required"
-      })
-   }
-
         // Update product
         let product = req.product;
         product = _.extend(product, fields);

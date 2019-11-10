@@ -1,5 +1,3 @@
-import { type } from "os";
-
 // Read user  information from backend
 export const read = (userId, token) => {
     return fetch(`/api/user/${userId}`, {
