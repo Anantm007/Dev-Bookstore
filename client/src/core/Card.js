@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Redirect} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import ShowImage from './ShowImage';
 import moment from 'moment';
 import {addItem, updateItem, removeItem} from './cartHelpers';
@@ -13,9 +13,11 @@ const Card = ({product, showViewProductButton = true, showAddToCartButton = true
     const showViewButton = (showViewProductButton) => {
         return (
             showViewProductButton && (
-                <button className="btn btn-outline-primary mt-2 mb-2 mr-2">
+                <Link to ={`/product/${product._id}`} className="mr-2">
+                    <button className="btn btn-outline-primary mt-2 mb-2 mr-2">
                             View Product
-                        </button>
+                    </button>    
+                </Link>
             )
         )
     }
