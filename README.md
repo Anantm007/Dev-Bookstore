@@ -11,7 +11,7 @@ A MERN stack e-commerce app along with payment gateway that sells developer book
 7. Checkout using credit card and paypal
 8. Advanced search filters based on category and price range
 9. Books also categorized upon arrival date and bestsellers
-10.Order confirmation through email and user dashboard
+10. Order confirmation through email and change order status for admin
 
 Feel free to fork this repo and raise an issue or submit a PR in case of any bugs.
 
