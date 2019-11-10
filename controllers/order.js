@@ -3,6 +3,21 @@ const {Order, CartItem} = require('../models/order');
 const {errorHandler} = require("../helpers/dbErrorHandler");
 const User = require("../models/user");
 
+// nodemailer to send emails
+const nodemailer = require("nodemailer");
+let transporter = nodemailer.createTransport({
+    service : 'gmail',
+    secure : false,
+    port : 25,
+    auth : {
+        user : process.env.EMAILID,
+        pass : process.env.EMAILPASSWORD
+    },
+    tls : {
+        rejectUnauthorized : false
+    }});
+
+
 
 // Return order by id
 exports.orderById = (req, res, next, id) => {
@@ -33,6 +48,34 @@ exports.create = (req, res) => {
         }
         res.json(data);
     });
+
+    // Send order confirmation email to user and admin
+    let HelperOptions ={
+
+        from : process.env.NAME + '<'+ (process.env.EMAILID)+'>' ,
+        to : "anant.mathur007@gmail.com",
+        subject : "Hey admin, a purchase has been made!",
+        text : "Hello Anant, \n\nA purchase of Rs. " + req.body.order.amount + " has been made by " + req.profile.name + "\n\nRegards, \nDev Bookstore"
+    };
+    
+    transporter.sendMail(HelperOptions,(err,info)=>{
+        if(err) throw err;
+        console.log("The message was sent");
+    });
+
+    let HelperOptions2 ={
+
+        from : process.env.NAME + '<'+ (process.env.EMAILID)+'>' ,
+        to : req.profile.email,
+        subject : "Your order on Dev Bookstore was successful",
+        text : "Hello " + req.profile.name + ", \n\nYou have successfully made purchase of Rs. " + req.body.order.amount + "on Dev Bookstore. Please check your dashboard to track the status of your order.\n\nRegards, \nDev Bookstore"
+    };
+    
+    transporter.sendMail(HelperOptions2,(err,info)=>{
+        if(err) throw err;
+        console.log("The message was sent");
+    });
+
 };
 
 // Push order to user history

@@ -1,11 +1,30 @@
 const jwt = require('jsonwebtoken'); // to generate signed token
 const expressJwt = require('express-jwt'); // for authorization check 
 
+// Config Variables
+require('dotenv').config();
+
 // User Schema
 const User = require('../models/user');
 
 // Handle database error
 const {errorHandler} = require('../helpers/dbErrorHandler');
+
+// nodemailer to send emails
+const nodemailer = require("nodemailer");
+let transporter = nodemailer.createTransport({
+    service : 'gmail',
+    secure : false,
+    port : 25,
+    auth : {
+        user : process.env.EMAILID,
+        pass : process.env.EMAILPASSWORD
+    },
+    tls : {
+        rejectUnauthorized : false
+    }});
+
+
 
 
 // Signup a new user
@@ -26,6 +45,20 @@ exports.signup = async(req, res) => {
         
         res.json({user});
     })
+
+    // Send welcome email
+    let HelperOptions ={
+
+        from : process.env.NAME + '<'+ (process.env.EMAILID)+'>' ,
+        to : user.email,
+        subject : "Welcome to Dev Bookstore",
+        text : "Hello " + user.name + ", \n\nWelcome to Dev BookStore. This is a fully functional e-commerce app built on MERN stack along with payment gateway. \nAny suggestions are always welcome. \n\nRegards, \nAnant Mathur"
+    };
+
+    transporter.sendMail(HelperOptions,(err,info)=>{
+        if(err) throw err;
+        console.log("The message was sent");
+    });
 };
 
 // Signin existing user
