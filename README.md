@@ -13,7 +13,7 @@ A complete e-commerce app built on the MERN stack that sells developer books.
 6. npm install
 7. cd ..
 5. npm run dev
-6. Open the project on 127.0.0.1:3000
+6. Open the project on 127.0.0.1:3010
 ```
 
 ## Features
