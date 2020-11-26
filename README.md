@@ -41,8 +41,6 @@ A complete e-commerce app built on the MERN stack that sells developer books.
 
 ### Check out the deployed application at:
 
-- http://devstore.anantmathur.me
-  OR
 - https://devbookstore.herokuapp.com/
 
 #### Contributiong
