@@ -32,7 +32,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.7.6",
     "morgan": "^1.9.1",
-    "nodemailer": "^6.3.1",
+    "nodemailer": "^6.4.16",
     "nodemon": "^1.19.4",
     "query-string": "^6.8.3",
     "uuid": "^3.3.3"
